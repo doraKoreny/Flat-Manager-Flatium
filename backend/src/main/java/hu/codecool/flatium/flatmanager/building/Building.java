@@ -2,6 +2,7 @@ package hu.codecool.flatium.flatmanager.building;
 
 import hu.codecool.flatium.flatmanager.flat.Flat;
 import hu.codecool.flatium.flatmanager.flat.contacts.ContactPerson;
+import hu.codecool.flatium.supplemetal.Day;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +14,15 @@ public class Building {
 
     private List<Flat> flats = new ArrayList<>();
     private List<ContactPerson> contactPeople = new ArrayList<>();
-    private String garbageCollectingTime;
+    private Day day;
     private double commonCost;
     private String residentalMeetupDate;
     public Building() {
     }
 
-    public Building(List<Flat> flats, String garbageCollectingTime, double commonCost) {
+    public Building(List<Flat> flats, Day day, double commonCost) {
         this.flats = flats;
-        this.garbageCollectingTime = garbageCollectingTime;
+        this.day = day;
         this.commonCost = commonCost;
     }
 
@@ -38,12 +39,12 @@ public class Building {
     }
 
 
-    public String getGarbageCollectingTime() {
-        return garbageCollectingTime;
+    public Day getDay() {
+        return day;
     }
 
-    public void setGarbageCollectingTime(String garbageCollectingTime) {
-        this.garbageCollectingTime = garbageCollectingTime;
+    public void setGarbageCollectingTime(Day day) {
+        this.day = day;
     }
 
     public double getCommonCost() {
