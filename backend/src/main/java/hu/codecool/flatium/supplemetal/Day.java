@@ -1,6 +1,7 @@
-package hu.codecool.flatium.supplemetal
+package hu.codecool.flatium.supplemetal;
 
-enum class Day {
+public enum Day {
+
     MONDAY,
     TUESDAY,
     WEDNESDAY,
@@ -8,4 +9,6 @@ enum class Day {
     FRIDAY,
     SATURDAY,
     SUNDAY
+
+
 }
