@@ -17,10 +17,13 @@ public class Building {
     private Day day;
     private double commonCost;
     private String residentalMeetupDate;
+
     public Building() {
+        this.id = idCounter++;
     }
 
     public Building(List<Flat> flats, Day day, double commonCost) {
+        this.id = idCounter++;
         this.flats = flats;
         this.day = day;
         this.commonCost = commonCost;

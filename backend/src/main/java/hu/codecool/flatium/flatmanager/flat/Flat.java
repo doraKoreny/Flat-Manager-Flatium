@@ -14,6 +14,7 @@ public class Flat {
     private FlatUser flatUser;
 
     public Flat() {
+        this.id = idCounter++;
     }
 
     public Flat(int squareMeter, int roomNum, FlatUser flatUser) {

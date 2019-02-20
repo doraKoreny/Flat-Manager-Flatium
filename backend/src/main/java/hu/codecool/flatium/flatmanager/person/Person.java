@@ -17,6 +17,7 @@ public abstract class Person {
     private String email;
 
     public Person() {
+        this.id = idCounter++;
     }
 
     public Person(String name, String phoneNumber, String email) {
