@@ -7,6 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class FlatUserController {
 
@@ -33,6 +35,15 @@ public class FlatUserController {
     public ResponseEntity<String> deleteFlatUser(@RequestBody int id) {
         flatUserStorage.deleteFlatUser(id);
         return ResponseEntity.ok("Flat User with the id: " + id + " deleted successfully");
+    }
+
+    @RequestMapping(
+            path = "/get-flatUsers",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<List<FlatUser>> getAllFlatUser() {
+        return ResponseEntity.ok(flatUserStorage.getFlatUserList());
     }
 
 }
