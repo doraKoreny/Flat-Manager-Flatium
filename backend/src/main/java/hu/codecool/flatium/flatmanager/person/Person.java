@@ -4,6 +4,15 @@ public abstract class Person {
     private int id;
     private static int idCounter = 0;
     private String name;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     private String phoneNumber;
     private String email;
 
