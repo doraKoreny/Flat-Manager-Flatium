@@ -23,4 +23,16 @@ public class FlatUserController {
         flatUserStorage.addFlatUser(flatUser);
         return ResponseEntity.ok("User added successfully.");
     }
+
+    @RequestMapping(
+            path = "/delete-flatUser",
+            method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<String> deleteFlatUser(@RequestBody int id) {
+        flatUserStorage.deleteFlatUser(id);
+        return ResponseEntity.ok("Flat User with the id: " + id + " deleted successfully");
+    }
+
 }
