@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
-import './App.css';
 import Navbar from './components/Navbar';
 import FlatInfo from './components/FlatInfo';
 import axios from 'axios'
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
+import './App.css';
 
 
 class App extends Component {
@@ -15,7 +15,9 @@ class App extends Component {
         return (
             <div className="App">
                 <Navbar/>
-                <FlatInfo/>
+                <div className="jumbotron">
+                    <FlatInfo/>
+                </div>
             </div>
         );
     }
