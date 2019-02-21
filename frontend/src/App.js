@@ -7,7 +7,6 @@ import axios from 'axios'
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
-import 'jquery'
 
 
 class App extends Component {
