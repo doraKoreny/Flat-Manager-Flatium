@@ -1,5 +1,6 @@
 package hu.codecool.flatium.flatmanager.controller;
 
+import hu.codecool.flatium.flatmanager.api.BoughtFlatRequest;
 import hu.codecool.flatium.flatmanager.api.FlatUpdateRequest;
 import hu.codecool.flatium.flatmanager.flat.Flat;
 import hu.codecool.flatium.flatmanager.flat.FlatUser;
@@ -65,14 +66,16 @@ public class FlatController {
     }
 
     @RequestMapping(
-            path = "/get-flatuser-test",
+            path = "/add-to-flat",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<FlatUser> getFlatUser(@RequestBody int id) {
-        return ResponseEntity.ok(flatUserStorage.getUserById(id));
+    public ResponseEntity<String> getFlatUser(@RequestBody BoughtFlatRequest boughtFlatRequest) {
+        FlatUser flatUser = flatUserStorage.getUserById(boughtFlatRequest.getUserId());
+        Flat flat = flatStorage.getFlat(boughtFlatRequest.getFlatId());
+        flat.setFlatUser(flatUser);
+        flatStorage.updateFlat(flat);
+        return ResponseEntity.ok("User " + flatUser.getName() + " successfully alligned to flat.");
     }
-
-
 }
