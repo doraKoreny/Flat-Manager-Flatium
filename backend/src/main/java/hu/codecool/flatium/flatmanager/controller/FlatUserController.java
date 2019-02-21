@@ -1,5 +1,6 @@
 package hu.codecool.flatium.flatmanager.controller;
 
+import hu.codecool.flatium.flatmanager.api.FlatUserUpdateRequest;
 import hu.codecool.flatium.flatmanager.flat.FlatUser;
 import hu.codecool.flatium.flatmanager.service.FlatUserStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class FlatUserController {
     }
 
     @RequestMapping(
-            path = "/delete-flatUser",
+            path = "/delete-flatuser",
             method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
@@ -38,7 +39,7 @@ public class FlatUserController {
     }
 
     @RequestMapping(
-            path = "/get-flatUsers",
+            path = "/get-flatusers",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
@@ -46,4 +47,14 @@ public class FlatUserController {
         return ResponseEntity.ok(flatUserStorage.getFlatUserList());
     }
 
+    @RequestMapping(
+            path = "/update-flatuser",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<String> updateFlatUser(@RequestBody FlatUserUpdateRequest flatUser) {
+        flatUserStorage.updateFlatUser(flatUser.getFlatUserId(), flatUser.getFlatUser());
+        return ResponseEntity.ok("Updated successfully");
+    }
 }
