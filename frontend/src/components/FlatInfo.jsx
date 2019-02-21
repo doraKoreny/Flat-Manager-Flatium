@@ -5,7 +5,7 @@ import axios from "axios";
 class FlatInfo extends Component {
 
     state = {
-        flats:[]
+        flats: []
     };
 
     getFlats = () => {
@@ -16,8 +16,19 @@ class FlatInfo extends Component {
     render() {
         return (
             <div>
-                <button onClick={()=>this.getFlats()} type={"button"}>Click</button>
-                <button onClick={()=>console.log(this.state.flats)} type={"button"}>LogFlats</button>
+                <button onClick={() => this.getFlats()} type={"button"} className={<button></button>}>Click</button>
+                <button onClick={() => console.log(this.state.flats)} type={"button"}
+                        className={<button></button>}>LogFlats
+                </button>
+                <div className="jumbotron">
+                    <h1 className="display-4">Hello, flatters!</h1>
+                    <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra
+                        attention to featured content or information.</p>
+                    <hr className="my-4"/>
+                    <div>
+                        <h1>{this.state.flats.length}</h1>
+                    </div>
+                </div>
             </div>
         );
     }
