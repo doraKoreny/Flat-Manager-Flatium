@@ -1,5 +1,6 @@
 package hu.codecool.flatium.flatmanager.controller;
 
+import hu.codecool.flatium.flatmanager.api.FlatUpdateRequest;
 import hu.codecool.flatium.flatmanager.flat.Flat;
 import hu.codecool.flatium.flatmanager.flat.FlatUser;
 import hu.codecool.flatium.flatmanager.service.FlatStorageService;
@@ -58,9 +59,9 @@ public class FlatController {
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<Flat> updateFlat(@RequestBody Flat flat) {
-        flatStorage.updateFlat(flat);
-        return ResponseEntity.ok(flat);
+    public ResponseEntity<String> updateFlat(@RequestBody FlatUpdateRequest flatUpdateRequest) {
+        flatStorage.updateFlat(flatUpdateRequest.getId(),flatUpdateRequest.getFlat());
+        return ResponseEntity.ok("Flat updated.");
     }
 
     @RequestMapping(
