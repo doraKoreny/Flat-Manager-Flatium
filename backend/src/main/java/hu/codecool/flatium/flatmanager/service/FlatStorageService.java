@@ -28,13 +28,35 @@ public class FlatStorageService {
                 .collect(Collectors.toList());
     }
 
-    public void updateFlat(Flat updatedFlat) {
+    public void updateFlat(Flat updatedFlat){
+        for (int i = 0; i < flats.size() ; i++) {
+            if(flats.get(i).getId() == updatedFlat.getId()){
+                flats.set(i,updatedFlat);
+            }
+        }
+    }
+
+    public void updateFlat(int id,Flat updatedFlat) {
         for (int i = 0; i < flats.size(); i++) {
-            if (flats.get(i).getId() == updatedFlat.getId()) {
+            if (flats.get(i).getId() == id) {
+                Flat flat = flats.get(i);
+                flat.setBills(updatedFlat.getBills());
+                flat.setFlatUser(updatedFlat.getFlatUser());
+                flat.setRoomNum(updatedFlat.getRoomNum());
+                flat.setSquareMeter(updatedFlat.getSquareMeter());
                 flats.set(i, updatedFlat);
             }
         }
 
+    }
+
+    public Flat getFlat(int id){
+        for (Flat flat : flats) {
+            if (flat.getId() == id) {
+                return flat;
+            }
+        }
+        return null;
     }
 
     public List<Flat> getFlats() {
