@@ -1,26 +1,31 @@
 package hu.codecool.flatium.flatmanager.service;
 
-import hu.codecool.flatium.flatmanager.flat.FlatUser;
+import hu.codecool.flatium.flatmanager.flat.Flat;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.lang.reflect.Field;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 class FlatStorageServiceTest {
 
+
     @Test
-    void testCreatedFlatSuccessfully() {
-        int roomNum = 2;
-        int squareMeter = 40;
+    public void testAddFlatToList() {
+        FlatStorageService flatStorageService = new FlatStorageService();
 
-        FlatCreatorService flatCreatorService = new FlatCreatorService();
-        Assert.assertNotEquals(flatCreatorService.createNewFlat(roomNum, squareMeter), null);
+        Flat flat = new Flat();
+        int flatListSize = flatStorageService.getFlats().size();
+
+        FlatCreatorService flatCreatorServiceMock = Mockito.mock(FlatCreatorService.class);
+        when(flatCreatorServiceMock.createNewFlat(2,42))
+                .thenReturn(flat);
+
+        flatStorageService.addFlat();
+        int listSize = flatStorageService.getFlats().size();
+        Assert.assertEquals(flatListSize + 1, listSize );
     }
-
-
-
-
-
 
 }
