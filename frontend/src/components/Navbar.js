@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
+import {Link} from 'react-router-dom'
 
 class Navbar extends Component {
     render() {
@@ -13,26 +14,34 @@ class Navbar extends Component {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item active">
-                                <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                            </li>
-                            <li className="nav-item active">
-                                <a className="nav-link" href="#">Community Info</a>
-                            </li>
-                            <li className="nav-item active">
-                                <a className="nav-link" href="#">Contact Page</a>
-                            </li>
-                            <li className="nav-item active">
-                                <a className="nav-link" href="#">My Flat</a>
-                            </li>
-                        </ul>
-                        <form className="form-inline my-2 my-lg-0">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search"
-                                   aria-label="Search">
-                            </input>
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-6">
+                                    <div className="nav-link logo">Flatium Flat Manager</div>
+                                </div>
+                                <div className="col-6">
+                                    <ul className="navbar-nav mr-auto">
+                                        <li className="nav-item active">
+                                            <Link to="/" className="nav-link">Home <span
+                                                className="sr-only">(current)</span></Link>
+                                        </li>
+                                        <li className="nav-item active">
+                                            <Link to="/cominfo" className="nav-link">Community Info</Link>
+                                        </li>
+                                        <li className="nav-item active">
+                                            <Link to="/contacts" className="nav-link">Contact Page</Link>
+                                        </li>
+                                        <li className="nav-item active">
+                                            <Link to="/myflat" className="nav-link">My Flat</Link>
+                                        </li>
+                                        <li className="nav-item active">
+                                            <Link to="/forum" className="nav-link">Forum</Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </nav>
             </div>

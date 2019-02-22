@@ -30,7 +30,7 @@ public class CommentController {
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<String> createBuilding(@RequestBody Comment comment) {
+    public ResponseEntity<String> addComment(@RequestBody Comment comment) {
         commentService.addComment(comment);
         return ResponseEntity.ok("Comment succesfully added");
     }
@@ -40,7 +40,7 @@ public class CommentController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<List<Comment>> createBuilding() {
+    public ResponseEntity<List<Comment>> getComments() {
         return ResponseEntity.ok(commentService.getComments());
     }
 
@@ -50,7 +50,7 @@ public class CommentController {
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<String> createBuilding(@RequestBody int commentId) {
+    public ResponseEntity<String> deleteComment(@RequestBody int commentId) {
         commentService.deleteComment(commentId);
         return ResponseEntity.ok("Comment succesfully deleted");
     }
@@ -61,7 +61,7 @@ public class CommentController {
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<String> createBuilding(@RequestBody CommentUpdateRequest commentUpdateRequest) {
+    public ResponseEntity<String> updateComment(@RequestBody CommentUpdateRequest commentUpdateRequest) {
         commentService.updateComment(commentUpdateRequest.getCommentId(),commentUpdateRequest.getComment());
         return ResponseEntity.ok("Comment succesfully updated");
     }
