@@ -3,16 +3,9 @@ import axios from "axios";
 import ForumPosts from "./ForumPosts"
 
 class Forum extends Component {
-
-    componentDidMount() {
-        this.getPosts();
-    }
-
     state ={
         postMessage:""
     };
-
-    posts = [];
 
     onChange = (e) => this.setState({ postMessage: e.target.value});
 
@@ -30,13 +23,6 @@ class Forum extends Component {
                 console.log(response);
                 this.setState({postMessage:""})
             });
-    };
-
-    getPosts = () =>{
-      axios.get("http://localhost:8080/get-comments")
-          .then(response =>{
-              this.posts = response.data;
-          });
     };
 
     render() {
@@ -65,6 +51,14 @@ class Forum extends Component {
                         </div>
                     </div>
                 </form>
+
+                <div className="container">
+                    <div className="row contactsheader">
+                        <div className="col-6">Message</div>
+                        <div className="col-6">Time</div>
+                    </div>
+                </div>
+                <ForumPosts/>
             </div>
         );
     }
