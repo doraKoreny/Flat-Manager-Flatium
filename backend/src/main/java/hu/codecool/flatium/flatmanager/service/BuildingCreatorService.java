@@ -2,7 +2,7 @@ package hu.codecool.flatium.flatmanager.service;
 
 import hu.codecool.flatium.flatmanager.building.Building;
 import hu.codecool.flatium.flatmanager.flat.Flat;
-import hu.codecool.flatium.supplemetal.Day;
+import hu.codecool.flatium.flatmanager.supplemetal.Day;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -2,7 +2,7 @@ package hu.codecool.flatium.flatmanager.building;
 
 import hu.codecool.flatium.flatmanager.flat.Flat;
 import hu.codecool.flatium.flatmanager.flat.contacts.ContactPerson;
-import hu.codecool.flatium.supplemetal.Day;
+import hu.codecool.flatium.flatmanager.supplemetal.Day;
 
 import java.util.ArrayList;
 import java.util.List;

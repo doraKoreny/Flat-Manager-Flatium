@@ -8,10 +8,7 @@ import hu.codecool.flatium.flatmanager.service.FlatUserStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,15 +21,10 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @RequestMapping(
-            path = "/add-comment",
-            method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<String> addComment(@RequestBody Comment comment) {
+    @PostMapping(path = "/add-comment")
+    public String addComment(@RequestBody Comment comment) {
         commentService.addComment(comment);
-        return ResponseEntity.ok("Comment succesfully added");
+        return "Comment succesfully added";
     }
 
     @RequestMapping(
