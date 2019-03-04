@@ -1,11 +1,10 @@
 package hu.codecool.flatium.flatmanager.model.flat;
 
+import hu.codecool.flatium.flatmanager.model.building.Building;
 import hu.codecool.flatium.flatmanager.model.flat.bills.Bill;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +12,24 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
 public class Flat {
+    @Id
+    @GeneratedValue
     private int id;
-    private static int idCounter = 0;
+
+    @ElementCollection
+    @Singular
+    @OneToMany(mappedBy = "flat", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Bill> bills = new ArrayList<>();
+
     private int squareMeter;
     private int roomNum;
-    private Person person;
+
+    @OneToOne(mappedBy = "flat", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Person flatUser;
+
+    @ManyToOne
+    private Building building;
 
 }
