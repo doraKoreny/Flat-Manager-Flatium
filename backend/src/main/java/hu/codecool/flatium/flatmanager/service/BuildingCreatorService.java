@@ -1,8 +1,8 @@
 package hu.codecool.flatium.flatmanager.service;
 
-import hu.codecool.flatium.flatmanager.building.Building;
-import hu.codecool.flatium.flatmanager.flat.Flat;
-import hu.codecool.flatium.flatmanager.supplemetal.Day;
+import hu.codecool.flatium.flatmanager.model.building.Building;
+import hu.codecool.flatium.flatmanager.model.flat.Flat;
+import hu.codecool.flatium.flatmanager.model.supplemetal.Day;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,12 +12,10 @@ import java.util.List;
 public class BuildingCreatorService {
 
     public Building createNewBuilding() {
-        Building building = new Building();
-        List<Flat> flats = new ArrayList<>();
-        for (int i = 0; i < 16; i++) flats.add(new Flat());
-        building.setFlats(flats);
-        building.setGarbageCollectingTime(Day.MONDAY);
-        building.setCommonCost(10000);
+        Building building = Building.builder()
+                .garbageCollectionDay(Day.MONDAY)
+                .commonCost(10000)
+                .build();
         return building;
     }
 }

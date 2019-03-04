@@ -1,32 +1,17 @@
 package hu.codecool.flatium.flatmanager.api;
 
-import hu.codecool.flatium.flatmanager.flat.Flat;
+import hu.codecool.flatium.flatmanager.model.flat.Flat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class FlatUpdateRequest {
     private int id;
     private Flat flat;
-
-    public FlatUpdateRequest() {
-    }
-
-    public FlatUpdateRequest(int id, Flat flat) {
-        this.id = id;
-        this.flat = flat;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Flat getFlat() {
-        return flat;
-    }
-
-    public void setFlat(Flat flat) {
-        this.flat = flat;
-    }
 }

@@ -1,11 +1,11 @@
 package hu.codecool.flatium.flatmanager.service;
 
-import hu.codecool.flatium.flatmanager.building.Building;
+import hu.codecool.flatium.flatmanager.model.building.Building;
+import hu.codecool.flatium.flatmanager.model.flat.Flat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,5 +38,14 @@ public class BuildingStorageService {
 
     public List<Building> getBuildings() {
         return buildings;
+    }
+
+    public Flat assignFlatToBuilding(Flat flat, int buildingId) {
+        Building buildingToAssign = buildings.stream()
+                .filter(building -> building.getId() == buildingId)
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("No such building."));
+        buildingToAssign.setFlats(Collections.singletonList(flat));
+        return flat;
     }
 }

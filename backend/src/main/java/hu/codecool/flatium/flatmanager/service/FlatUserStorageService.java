@@ -1,7 +1,6 @@
 package hu.codecool.flatium.flatmanager.service;
 
-import hu.codecool.flatium.flatmanager.flat.Flat;
-import hu.codecool.flatium.flatmanager.flat.FlatUser;
+import hu.codecool.flatium.flatmanager.model.flat.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,38 +14,38 @@ public class FlatUserStorageService {
     @Autowired
     private FlatUserCreatorService flatUserCreator;
 
-    private List<FlatUser> flatUserList = new ArrayList<>();
+    private List<Person> personList = new ArrayList<>();
 
-    public List<FlatUser> getFlatUserList() {
-        return flatUserList;
+    public List<Person> getPersonList() {
+        return personList;
     }
 
-    public void addFlatUser(FlatUser flatUser) {
-        this.flatUserList.add(flatUser);
+    public void addFlatUser(Person person) {
+        this.personList.add(person);
     }
 
     public void deleteFlatUser(int id) {
-        this.flatUserList = flatUserList.stream()
+        this.personList = personList.stream()
                 .filter(flatUser -> flatUser.getId() != id)
                 .collect(Collectors.toList());
     }
 
-    public void updateFlatUser(int updateId,FlatUser updatedFlatUser) {
-        for (int i = 0; i < flatUserList.size(); i++) {
-            if (flatUserList.get(i).getId() == updateId) {
-                FlatUser currentFlatUser = flatUserList.get(i);
-                currentFlatUser.setName(updatedFlatUser.getName());
-                currentFlatUser.setEmail(updatedFlatUser.getEmail());
-                currentFlatUser.setPhoneNumber(updatedFlatUser.getPhoneNumber());
-                flatUserList.set(i, currentFlatUser);
+    public void updateFlatUser(int updateId, Person updatedPerson) {
+        for (int i = 0; i < personList.size(); i++) {
+            if (personList.get(i).getId() == updateId) {
+                Person currentPerson = personList.get(i);
+                currentPerson.setName(updatedPerson.getName());
+                currentPerson.setEmail(updatedPerson.getEmail());
+                currentPerson.setPhoneNumber(updatedPerson.getPhoneNumber());
+                personList.set(i, currentPerson);
             }
         }
     }
 
-    public FlatUser getUserById(int id){
-        for (FlatUser flatUser : flatUserList) {
-            if (flatUser.getId() == id) {
-                return flatUser;
+    public Person getUserById(int id){
+        for (Person person : personList) {
+            if (person.getId() == id) {
+                return person;
             }
         }
         return null;

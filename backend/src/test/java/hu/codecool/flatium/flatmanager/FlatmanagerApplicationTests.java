@@ -1,6 +1,6 @@
 package hu.codecool.flatium.flatmanager;
 
-import hu.codecool.flatium.flatmanager.flat.Flat;
+import hu.codecool.flatium.flatmanager.model.flat.Flat;
 import hu.codecool.flatium.flatmanager.service.FlatCreatorService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
