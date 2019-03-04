@@ -1,9 +1,9 @@
 package hu.codecool.flatium.flatmanager.service;
 
-import hu.codecool.flatium.flatmanager.forum.Comment;
-import org.springframework.beans.factory.annotation.Autowired;
+import hu.codecool.flatium.flatmanager.model.forum.Comment;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +27,7 @@ public class CommentService {
         comments.forEach(comment ->{
             if (comment.getId() == commentId) {
                 comment.setMessage(message);
-                comment.setTimeStamp(Comment.getNewInstant());
+                comment.setTimeStamp(LocalDate.now());
             }
         });
     }

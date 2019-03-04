@@ -1,8 +1,7 @@
 package hu.codecool.flatium.flatmanager.controller;
 
 import hu.codecool.flatium.flatmanager.api.CommentUpdateRequest;
-import hu.codecool.flatium.flatmanager.building.Building;
-import hu.codecool.flatium.flatmanager.forum.Comment;
+import hu.codecool.flatium.flatmanager.model.forum.Comment;
 import hu.codecool.flatium.flatmanager.service.CommentService;
 import hu.codecool.flatium.flatmanager.service.FlatUserStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,32 +26,18 @@ public class CommentController {
         return "Comment succesfully added";
     }
 
-    @RequestMapping(
-            path = "/get-comments",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
+    @GetMapping(path = "/get-comments")
     public ResponseEntity<List<Comment>> getComments() {
         return ResponseEntity.ok(commentService.getComments());
     }
 
-    @RequestMapping(
-            path = "/delete-comment",
-            method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
+    @DeleteMapping(path = "/delete-comment")
     public ResponseEntity<String> deleteComment(@RequestBody int commentId) {
         commentService.deleteComment(commentId);
         return ResponseEntity.ok("Comment succesfully deleted");
     }
 
-    @RequestMapping(
-            path = "/update-comment",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
+    @PostMapping(path = "/update-comment")
     public ResponseEntity<String> updateComment(@RequestBody CommentUpdateRequest commentUpdateRequest) {
         commentService.updateComment(commentUpdateRequest.getCommentId(),commentUpdateRequest.getComment());
         return ResponseEntity.ok("Comment succesfully updated");

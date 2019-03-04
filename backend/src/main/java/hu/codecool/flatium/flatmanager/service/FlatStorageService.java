@@ -1,6 +1,6 @@
 package hu.codecool.flatium.flatmanager.service;
 
-import hu.codecool.flatium.flatmanager.flat.Flat;
+import hu.codecool.flatium.flatmanager.model.flat.Flat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +41,7 @@ public class FlatStorageService {
             if (flats.get(i).getId() == id) {
                 Flat flat = flats.get(i);
                 flat.setBills(updatedFlat.getBills());
-                flat.setFlatUser(updatedFlat.getFlatUser());
+                flat.setPerson(updatedFlat.getPerson());
                 flat.setRoomNum(updatedFlat.getRoomNum());
                 flat.setSquareMeter(updatedFlat.getSquareMeter());
                 flats.set(i, updatedFlat);

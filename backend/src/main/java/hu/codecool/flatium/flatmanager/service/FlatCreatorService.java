@@ -1,8 +1,8 @@
 package hu.codecool.flatium.flatmanager.service;
 
-import hu.codecool.flatium.flatmanager.flat.Flat;
-import hu.codecool.flatium.flatmanager.flat.bills.Bill;
-import hu.codecool.flatium.flatmanager.flat.bills.BillType;
+import hu.codecool.flatium.flatmanager.model.flat.Flat;
+import hu.codecool.flatium.flatmanager.model.flat.bills.Bill;
+import hu.codecool.flatium.flatmanager.model.flat.bills.BillType;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,13 +12,16 @@ import java.util.List;
 public class FlatCreatorService {
 
     public Flat createNewFlat(int roomNum, int squareMeter) {
-        Flat flat = new Flat();
         List<Bill> bills = new ArrayList<>();
-        bills.add(new Bill(BillType.INTERNET, 5000));
-        flat.setRoomNum(roomNum);
-        flat.setSquareMeter(squareMeter);
-        flat.setBills(bills);
+        bills.add(Bill.builder()
+                .billType(BillType.INTERNET)
+                .price(5000)
+                .build());
+        Flat flat = Flat.builder()
+                .roomNum(roomNum)
+                .squareMeter(squareMeter)
+                .bills(bills)
+                .build();
         return flat;
     }
-
 }
