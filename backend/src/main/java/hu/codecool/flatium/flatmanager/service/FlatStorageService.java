@@ -41,7 +41,7 @@ public class FlatStorageService {
             if (flats.get(i).getId() == id) {
                 Flat flat = flats.get(i);
                 flat.setBills(updatedFlat.getBills());
-                flat.setPerson(updatedFlat.getPerson());
+                flat.setFlatUser(updatedFlat.getFlatUser());
                 flat.setRoomNum(updatedFlat.getRoomNum());
                 flat.setSquareMeter(updatedFlat.getSquareMeter());
                 flats.set(i, updatedFlat);

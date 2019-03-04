@@ -7,7 +7,6 @@ import hu.codecool.flatium.flatmanager.model.flat.Person;
 import hu.codecool.flatium.flatmanager.service.FlatStorageService;
 import hu.codecool.flatium.flatmanager.service.FlatUserStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +47,7 @@ public class FlatController {
     public ResponseEntity<String> getFlatUser(@RequestBody BoughtFlatRequest boughtFlatRequest) {
         Person person = flatUserStorage.getUserById(boughtFlatRequest.getUserId());
         Flat flat = flatStorage.getFlat(boughtFlatRequest.getFlatId());
-        flat.setPerson(person);
+        flat.setFlatUser(person);
         flatStorage.updateFlat(flat);
         return ResponseEntity.ok("User " + person.getName() + " successfully alligned to flat.");
     }
