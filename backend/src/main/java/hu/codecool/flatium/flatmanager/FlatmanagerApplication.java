@@ -28,6 +28,7 @@ public class FlatmanagerApplication {
     }
 
     @Bean
+    @Profile("production")
     public CommandLineRunner init() {
         return args -> {
 
