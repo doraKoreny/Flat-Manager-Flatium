@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -35,11 +36,11 @@ public class CommentRepositoryTest {
                 .email("something@codecool.hu")
                 .phoneNumber("06803889876")
                 .type(PersonType.FLATUSER)
+                .birthDate(LocalDate.of(1998, 12, 29))
                 .build();
-        Comment comment = new Comment(1, "This is the message by Something");
-        comment.setFlatUserId(1);
-        flatUserRepository.save(flatUser);
-        commentRepository.save(comment);
+        Comment comment = new Comment(0, "This is the message by Something");
+        flatUserRepository.saveAndFlush(flatUser);
+        commentRepository.saveAndFlush(comment);
 
         List<Comment> commentList = commentRepository.findAll();
         Assert.assertEquals(1, commentList.size());
