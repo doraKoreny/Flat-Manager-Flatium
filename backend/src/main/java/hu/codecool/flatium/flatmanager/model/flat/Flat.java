@@ -1,5 +1,6 @@
 package hu.codecool.flatium.flatmanager.model.flat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import hu.codecool.flatium.flatmanager.model.building.Building;
 import hu.codecool.flatium.flatmanager.model.flat.bills.Bill;
 import lombok.*;
@@ -20,6 +21,8 @@ public class Flat {
 
     @ElementCollection
     @Singular
+    @EqualsAndHashCode.Exclude
+    @JsonIgnoreProperties({"flat"})
     @OneToMany(mappedBy = "flat", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Bill> bills = new ArrayList<>();
 
@@ -27,6 +30,7 @@ public class Flat {
     private int roomNum;
 
     @OneToOne(mappedBy = "flat", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnoreProperties({"flat"})
     private Person flatUser;
 
     @ManyToOne

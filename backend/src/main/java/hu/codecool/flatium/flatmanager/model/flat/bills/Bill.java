@@ -1,10 +1,7 @@
 package hu.codecool.flatium.flatmanager.model.flat.bills;
 
 import hu.codecool.flatium.flatmanager.model.flat.Flat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
