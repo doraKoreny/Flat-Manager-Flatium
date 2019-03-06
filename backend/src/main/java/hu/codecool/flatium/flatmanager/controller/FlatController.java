@@ -25,15 +25,8 @@ public class FlatController {
     private FlatUserRepository flatUserRepository;
 
     @PostMapping(path = "/create-flat")
-    public Flat createFlat() {
-
-        Flat flat = Flat.builder()
-                        .roomNum(2)
-                        .squareMeter(42)
-                        .build();
-
+    public Flat createFlat(@RequestBody Flat flat) {
         flatRepository.save(flat);
-
         return flat;
     }
 
@@ -50,19 +43,14 @@ public class FlatController {
 
     @PostMapping(path = "/update-flat")
     public String updateFlat(@RequestBody Flat flat) {
-
         flatRepository.save(flat);
-
         return "Flat updated.";
     }
 
     @PostMapping(path = "/add-to-flat")
     public String addToFlat(@RequestBody BoughtFlatRequest boughtFlatRequest) {
-
-
-        Person flatUser = flatUserRepository.findById(boughtFlatRequest.getUserId()).orElseThrow(()-> new IllegalStateException("flatUser not found"));
-        Flat flat = flatRepository.findById(boughtFlatRequest.getUserId()).orElseThrow(()-> new IllegalStateException("flat not found"));
-
+        Person flatUser = flatUserRepository.findById(boughtFlatRequest.getUserId()).orElseThrow(() -> new IllegalStateException("flatUser not found"));
+        Flat flat = flatRepository.findById(boughtFlatRequest.getUserId()).orElseThrow(() -> new IllegalStateException("flat not found"));
 
         flat.setFlatUser(flatUser);
         flatUser.setFlat(flat);
