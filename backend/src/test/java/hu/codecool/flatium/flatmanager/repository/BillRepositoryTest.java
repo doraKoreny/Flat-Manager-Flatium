@@ -64,12 +64,6 @@ public class BillRepositoryTest {
                 .price(15000)
                 .build();
 
-        Flat flat = Flat.builder()
-                .squareMeter(42)
-                .roomNum(2)
-                .bill(bill)
-                .build();
-
-        flatRepository.save(flat);
+        billRepository.saveAndFlush(bill);
     }
 }

@@ -47,6 +47,9 @@ backend/.idea
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Application props, reason: datasrc username & password differentiation
+/backend/src/main/resources/application.properties
+
 # dependencies
 /frontend/node_modules
 /frontend/.pnp
