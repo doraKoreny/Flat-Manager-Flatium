@@ -2,80 +2,73 @@ package hu.codecool.flatium.flatmanager.controller;
 
 import hu.codecool.flatium.flatmanager.api.BoughtFlatRequest;
 import hu.codecool.flatium.flatmanager.api.FlatUpdateRequest;
-import hu.codecool.flatium.flatmanager.flat.Flat;
-import hu.codecool.flatium.flatmanager.flat.FlatUser;
+import hu.codecool.flatium.flatmanager.model.flat.Flat;
+import hu.codecool.flatium.flatmanager.model.flat.Person;
+import hu.codecool.flatium.flatmanager.repository.FlatRepository;
+import hu.codecool.flatium.flatmanager.repository.FlatUserRepository;
 import hu.codecool.flatium.flatmanager.service.FlatStorageService;
 import hu.codecool.flatium.flatmanager.service.FlatUserStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class FlatController {
 
     @Autowired
-    private FlatStorageService flatStorage;
+    private FlatRepository flatRepository;
 
     @Autowired
-    private FlatUserStorageService flatUserStorage;
+    private FlatUserRepository flatUserRepository;
 
-    @RequestMapping(
-            path = "/create-flat",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<Flat> createFlat() {
-        return ResponseEntity.ok(flatStorage.addFlat());
+    @PostMapping(path = "/create-flat")
+    public Flat createFlat() {
+
+        Flat flat = Flat.builder()
+                        .roomNum(2)
+                        .squareMeter(42)
+                        .build();
+
+        flatRepository.save(flat);
+
+        return flat;
     }
 
-    @RequestMapping(
-            path = "/delete-flat",
-            method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<String> deleteFlat(@RequestBody int id) {
-        flatStorage.deleteFlat(id);
-        return ResponseEntity.ok("Flat with the id: " + id + " deleted successfully");
+    @DeleteMapping(path = "/delete-flat")
+    public String deleteFlat(@RequestBody int id) {
+        flatRepository.deleteById(id);
+        return "Flat with the id: " + id + " deleted successfully";
     }
 
-    @RequestMapping(
-            path = "/get-flats",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<List<Flat>> getAllFlats() {
-        return ResponseEntity.ok(flatStorage.getFlats());
+    @GetMapping(path = "/get-flats")
+    public List<Flat> getAllFlats() {
+        return flatRepository.findAll();
     }
 
-    @RequestMapping(
-            path = "/update-flat",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<String> updateFlat(@RequestBody FlatUpdateRequest flatUpdateRequest) {
-        flatStorage.updateFlat(flatUpdateRequest.getId(),flatUpdateRequest.getFlat());
-        return ResponseEntity.ok("Flat updated.");
+    @PostMapping(path = "/update-flat")
+    public String updateFlat(@RequestBody Flat flat) {
+
+        flatRepository.save(flat);
+
+        return "Flat updated.";
     }
 
-    @RequestMapping(
-            path = "/add-to-flat",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<String> getFlatUser(@RequestBody BoughtFlatRequest boughtFlatRequest) {
-        FlatUser flatUser = flatUserStorage.getUserById(boughtFlatRequest.getUserId());
-        Flat flat = flatStorage.getFlat(boughtFlatRequest.getFlatId());
+    @PostMapping(path = "/add-to-flat")
+    public String addToFlat(@RequestBody BoughtFlatRequest boughtFlatRequest) {
+
+
+        Person flatUser = flatUserRepository.findById(boughtFlatRequest.getUserId()).orElseThrow(()-> new IllegalStateException("flatUser not found"));
+        Flat flat = flatRepository.findById(boughtFlatRequest.getUserId()).orElseThrow(()-> new IllegalStateException("flat not found"));
+
+
         flat.setFlatUser(flatUser);
-        flatStorage.updateFlat(flat);
-        return ResponseEntity.ok("User " + flatUser.getName() + " successfully alligned to flat.");
+        flatUser.setFlat(flat);
+
+        flatRepository.save(flat);
+
+        return "User " + flatUser.getName() + " successfully alligned to flat.";
     }
 }

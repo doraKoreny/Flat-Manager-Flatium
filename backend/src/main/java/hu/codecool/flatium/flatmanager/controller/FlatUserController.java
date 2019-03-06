@@ -1,7 +1,9 @@
 package hu.codecool.flatium.flatmanager.controller;
 
 import hu.codecool.flatium.flatmanager.api.FlatUserUpdateRequest;
-import hu.codecool.flatium.flatmanager.flat.FlatUser;
+import hu.codecool.flatium.flatmanager.model.flat.Person;
+import hu.codecool.flatium.flatmanager.repository.FlatRepository;
+import hu.codecool.flatium.flatmanager.repository.FlatUserRepository;
 import hu.codecool.flatium.flatmanager.service.FlatUserStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,47 +16,31 @@ import java.util.List;
 public class FlatUserController {
 
     @Autowired
-    private FlatUserStorageService flatUserStorage;
+    private FlatUserRepository flatUserRepository;
 
-    @RequestMapping(
-            path = "create-flatuser",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<String> createFlatUser(@RequestBody FlatUser flatUser) {
-        flatUserStorage.addFlatUser(flatUser);
-        return ResponseEntity.ok("User added successfully.");
+    @PostMapping(path = "/create-flatuser")
+    public String createFlatUser(@RequestBody Person person) {
+        flatUserRepository.save(person);
+        return "User added successfully.";
     }
 
-    @RequestMapping(
-            path = "/delete-flatuser",
-            method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<String> deleteFlatUser(@RequestBody int id) {
-        flatUserStorage.deleteFlatUser(id);
-        return ResponseEntity.ok("Flat User with the id: " + id + " deleted successfully");
+    @DeleteMapping(path = "/delete-flatuser")
+    public String deleteFlatUser(@RequestBody int id) {
+        flatUserRepository.deleteById(id);
+        return "Flat User with the id: " + id + " deleted successfully";
     }
 
-    @RequestMapping(
-            path = "/get-flatusers",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<List<FlatUser>> getAllFlatUser() {
-        return ResponseEntity.ok(flatUserStorage.getFlatUserList());
+    @GetMapping(path = "/get-flatusers")
+    public List<Person> getAllFlatUser() {
+        return flatUserRepository.findAll();
     }
 
-    @RequestMapping(
-            path = "/update-flatuser",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<String> updateFlatUser(@RequestBody FlatUserUpdateRequest flatUser) {
-        flatUserStorage.updateFlatUser(flatUser.getFlatUserId(), flatUser.getFlatUser());
-        return ResponseEntity.ok("Updated successfully");
+    @PostMapping(path = "/update-flatuser")
+    public String updateFlatUser(@RequestBody FlatUserUpdateRequest flatUser) {
+        Person flatUserToSave = flatUser.getPerson();
+        flatUserToSave.setId(flatUser.getFlatUserId());
+        flatUserRepository.save(flatUserToSave);
+
+        return "Updated successfully";
     }
 }

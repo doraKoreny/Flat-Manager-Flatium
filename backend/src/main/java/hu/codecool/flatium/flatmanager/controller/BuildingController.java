@@ -1,14 +1,12 @@
 package hu.codecool.flatium.flatmanager.controller;
 
-import hu.codecool.flatium.flatmanager.building.Building;
-import hu.codecool.flatium.flatmanager.service.BuildingStorageService;
+import hu.codecool.flatium.flatmanager.api.AssignToBuildingRequest;
+import hu.codecool.flatium.flatmanager.model.building.Building;
+import hu.codecool.flatium.flatmanager.model.flat.Flat;
+import hu.codecool.flatium.flatmanager.repository.BuildingRepository;
+import hu.codecool.flatium.flatmanager.repository.FlatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,34 +15,50 @@ import java.util.List;
 public class BuildingController {
 
     @Autowired
-    private BuildingStorageService buildingStorage;
+    private BuildingRepository buildingRepository;
 
-    @RequestMapping(
-            path = "/create-building",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<Building> createBuilding() {
-        return ResponseEntity.ok(buildingStorage.addBuilding());
+    @Autowired
+    private FlatRepository flatRepository;
+
+    @PostMapping(path = "/create-building")
+    public Building createBuilding(@RequestBody Building building) {
+        buildingRepository.save(building);
+        return building;
     }
 
-    @RequestMapping(
-            path = "/delete-building",
-            method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<String> deleteBuilding(@RequestBody int id){
-        buildingStorage.deleteBuilding(id);
-        return ResponseEntity.ok("Building with the id: " + id + " deleted successfully");
+    @DeleteMapping(path = "/delete-building")
+    public String deleteBuilding(@RequestBody int id) {
+        buildingRepository.deleteById(id);
+        return "Building with the id: " + id + " deleted successfully";
     }
 
-    @RequestMapping(
-            path = "get-buildings",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<List<Building>> getAllBuildings(){
-        return ResponseEntity.ok(buildingStorage.getBuildings());
+    @GetMapping(path = "/get-buildings")
+    public List<Building> getAllBuildings() {
+        return buildingRepository.findAll();
     }
+
+    @PostMapping(path = "get-building")
+    public Building getBuilding(@RequestBody int id){
+        return buildingRepository.findById(id).orElseThrow(()->new IllegalStateException("anyád"));
+    }
+
+    @PostMapping(path = "/add-flat")
+    public String assignFlatToBuilding(@RequestBody AssignToBuildingRequest chosenBuilding) {
+
+        Flat flat = flatRepository.findById(chosenBuilding.getFlatId()).orElseThrow(()-> new IllegalStateException("flat not found"));
+        Building building = buildingRepository.findById(chosenBuilding.getBuildingId()).orElseThrow(()-> new IllegalStateException("building not found"));
+
+        building.allignFlat(flat);
+        flat.setBuilding(building);
+        buildingRepository.save(building);
+
+        return "flat alligned";
+    }
+
+    @PostMapping(path = "/update-building")
+    public Building updateBuilding(@RequestBody Building building) {
+        buildingRepository.save(building);
+        return building;
+    }
+
 }

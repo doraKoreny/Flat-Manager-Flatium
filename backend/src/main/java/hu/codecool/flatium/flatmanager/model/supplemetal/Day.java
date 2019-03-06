@@ -1,4 +1,4 @@
-package hu.codecool.flatium.supplemetal;
+package hu.codecool.flatium.flatmanager.model.supplemetal;
 
 public enum Day {
 

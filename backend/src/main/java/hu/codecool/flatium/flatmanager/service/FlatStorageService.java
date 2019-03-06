@@ -1,6 +1,6 @@
 package hu.codecool.flatium.flatmanager.service;
 
-import hu.codecool.flatium.flatmanager.flat.Flat;
+import hu.codecool.flatium.flatmanager.model.flat.Flat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
