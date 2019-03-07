@@ -67,4 +67,35 @@ public class FlatRepositoryTest {
 
     }
 
+    @Test
+    public void flatArePersistedAndDeletedWithFlatUser() {
+        Flat flat = Flat.builder()
+                .roomNum(1)
+                .squareMeter(10)
+                .build();
+
+
+        Person flatUser = Person.builder()
+                .type(PersonType.FLATUSER)
+                .birthDate(LocalDate.of(2000, 1, 23))
+                .name("Flat Liver")
+                .phoneNumber("06403987895")
+                .email("flatliver00@codecool.hu")
+                .flat(flat)
+                .build();
+
+        flat.setFlatUser(flatUser);
+
+        flatRepository.save(flat);
+
+        assertThat(flatUserRepository.findAll())
+                .hasSize(1);
+
+        flatRepository.deleteAll();
+
+        assertThat(flatUserRepository.findAll())
+                .hasSize(0);
+
+    }
+
 }
