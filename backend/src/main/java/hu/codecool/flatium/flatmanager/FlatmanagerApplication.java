@@ -6,8 +6,10 @@ import hu.codecool.flatium.flatmanager.model.flat.Person;
 import hu.codecool.flatium.flatmanager.model.flat.bills.Bill;
 import hu.codecool.flatium.flatmanager.model.flat.bills.BillType;
 import hu.codecool.flatium.flatmanager.model.flat.contacts.PersonType;
+import hu.codecool.flatium.flatmanager.model.forum.Comment;
 import hu.codecool.flatium.flatmanager.model.supplemetal.Day;
 import hu.codecool.flatium.flatmanager.repository.BuildingRepository;
+import hu.codecool.flatium.flatmanager.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +24,9 @@ public class FlatmanagerApplication {
 
     @Autowired
     private BuildingRepository buildingRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(FlatmanagerApplication.class, args);
@@ -50,6 +55,7 @@ public class FlatmanagerApplication {
                     .name("Dóra")
                     .phoneNumber("373626211")
                     .flat(flat)
+                    .birthDate(LocalDate.of(1972, 5, 2))
                     .build();
 
             Building building = Building.builder()
@@ -58,6 +64,10 @@ public class FlatmanagerApplication {
                     .residentalMeetupDate(LocalDate.of(2020, 12, 29))
                     .flat(flat)
                     .build();
+
+            Comment comment = new Comment(4, "this is my comment, my name is: Dóri");
+            commentRepository.saveAndFlush(comment);
+
 
             flat.setFlatUser(doraUser);
             bill.setFlat(flat);
