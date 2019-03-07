@@ -46,4 +46,22 @@ public class CommentRepositoryTest {
         Assert.assertEquals(1, commentList.size());
     }
 
+    @Test
+    public void commentPersistWithFlatUser() {
+        Person person = Person.builder()
+                .name("Person")
+                .birthDate(LocalDate.of(1998, 12, 12))
+                .type(PersonType.FLATUSER)
+                .phoneNumber("063636666333")
+                .email("person@codecool.hu")
+                .build();
+
+        Comment comment = new Comment(0, "This is a message");
+        flatUserRepository.saveAndFlush(person);
+        commentRepository.saveAndFlush(comment);
+
+        Assert.assertEquals(1, commentRepository.findAll().size());
+
+    }
+
 }
