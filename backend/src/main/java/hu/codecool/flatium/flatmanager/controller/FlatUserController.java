@@ -2,6 +2,8 @@ package hu.codecool.flatium.flatmanager.controller;
 
 import hu.codecool.flatium.flatmanager.api.FlatUserUpdateRequest;
 import hu.codecool.flatium.flatmanager.model.flat.Person;
+import hu.codecool.flatium.flatmanager.repository.FlatRepository;
+import hu.codecool.flatium.flatmanager.repository.FlatUserRepository;
 import hu.codecool.flatium.flatmanager.service.FlatUserStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,28 +16,31 @@ import java.util.List;
 public class FlatUserController {
 
     @Autowired
-    private FlatUserStorageService flatUserStorage;
+    private FlatUserRepository flatUserRepository;
 
     @PostMapping(path = "/create-flatuser")
-    public ResponseEntity<String> createFlatUser(@RequestBody Person person) {
-        flatUserStorage.addFlatUser(person);
-        return ResponseEntity.ok("User added successfully.");
+    public String createFlatUser(@RequestBody Person person) {
+        flatUserRepository.save(person);
+        return "User added successfully.";
     }
 
     @DeleteMapping(path = "/delete-flatuser")
-    public ResponseEntity<String> deleteFlatUser(@RequestBody int id) {
-        flatUserStorage.deleteFlatUser(id);
-        return ResponseEntity.ok("Flat User with the id: " + id + " deleted successfully");
+    public String deleteFlatUser(@RequestBody int id) {
+        flatUserRepository.deleteById(id);
+        return "Flat User with the id: " + id + " deleted successfully";
     }
 
     @GetMapping(path = "/get-flatusers")
-    public ResponseEntity<List<Person>> getAllFlatUser() {
-        return ResponseEntity.ok(flatUserStorage.getPersonList());
+    public List<Person> getAllFlatUser() {
+        return flatUserRepository.findAll();
     }
 
     @PostMapping(path = "/update-flatuser")
-    public ResponseEntity<String> updateFlatUser(@RequestBody FlatUserUpdateRequest flatUser) {
-        flatUserStorage.updateFlatUser(flatUser.getFlatUserId(), flatUser.getPerson());
-        return ResponseEntity.ok("Updated successfully");
+    public String updateFlatUser(@RequestBody FlatUserUpdateRequest flatUser) {
+        Person flatUserToSave = flatUser.getPerson();
+        flatUserToSave.setId(flatUser.getFlatUserId());
+        flatUserRepository.save(flatUserToSave);
+
+        return "Updated successfully";
     }
 }
