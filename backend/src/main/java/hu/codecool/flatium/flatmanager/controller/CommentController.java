@@ -25,7 +25,7 @@ public class CommentController {
     @PostMapping(path = "/add-comment")
     public String addComment(@RequestBody Comment comment) {
         commentRepository.save(comment);
-        return "Comment succesfully added";
+        return "Comment succesfully added"; // make every response JSON
     }
 
     @GetMapping(path = "/get-comments")

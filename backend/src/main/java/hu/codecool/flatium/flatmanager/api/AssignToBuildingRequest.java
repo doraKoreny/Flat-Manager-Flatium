@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AssignToBuildingRequest {
+public class AssignToBuildingRequest { // move to controller/model
     private int buildingId;
     private int flatId;
 }
