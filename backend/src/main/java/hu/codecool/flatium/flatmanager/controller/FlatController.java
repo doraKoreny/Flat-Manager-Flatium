@@ -1,19 +1,14 @@
 package hu.codecool.flatium.flatmanager.controller;
 
 import hu.codecool.flatium.flatmanager.api.BoughtFlatRequest;
-import hu.codecool.flatium.flatmanager.api.FlatUpdateRequest;
 import hu.codecool.flatium.flatmanager.model.flat.Flat;
 import hu.codecool.flatium.flatmanager.model.flat.Person;
 import hu.codecool.flatium.flatmanager.repository.FlatRepository;
 import hu.codecool.flatium.flatmanager.repository.FlatUserRepository;
-import hu.codecool.flatium.flatmanager.service.FlatStorageService;
-import hu.codecool.flatium.flatmanager.service.FlatUserStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class FlatController {
@@ -58,5 +53,10 @@ public class FlatController {
         flatRepository.save(flat);
 
         return "User " + flatUser.getName() + " successfully alligned to flat.";
+    }
+
+    @GetMapping(path = "/get-myflat/{user_id}")
+    public Flat getFlatByUserId(@PathVariable("user_id") String userId) {
+        return flatRepository.findByFlatUserId(Integer.parseInt(userId));
     }
 }
