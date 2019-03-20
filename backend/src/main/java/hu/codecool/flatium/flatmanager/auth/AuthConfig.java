@@ -44,7 +44,14 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .forRS256(apiAudience, issuer)
                 .configure(http)
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/get-myflat/{user_id}").hasAuthority("user");
-        
+                .antMatchers(HttpMethod.GET, "/get-myflat/{user_id}").hasAuthority("user")
+                .antMatchers(HttpMethod.POST, "/update-flat").hasAuthority("user")
+                .antMatchers(HttpMethod.POST, "/update-flatuser").hasAuthority("user")
+                .antMatchers(HttpMethod.POST, "/add-comment").hasAuthority("user")
+                .antMatchers(HttpMethod.POST, "/update-comment").hasAuthority("user")
+                .antMatchers(HttpMethod.DELETE, "/delete-comment").hasAuthority("user");
+
+
+
     }
 }
