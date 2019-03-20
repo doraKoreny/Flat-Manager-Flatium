@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @EnableWebSecurity
 @Configuration
-@PropertySource(value = "auth0.properties")
+@PropertySource("classpath:auth0.properties")
 public class AuthConfig extends WebSecurityConfigurerAdapter {
     @Value(value = "${auth0.apiAudience}")
     private String apiAudience;

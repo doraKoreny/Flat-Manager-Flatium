@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -16,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-@EnableAutoConfiguration(exclude = AuthConfig.class)
+@PropertySource(value = "auth0.properties")
 public class FlatmanagerApplicationTests {
 
     @Autowired
