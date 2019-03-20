@@ -28,7 +28,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8888"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowCredentials(true);
         configuration.addAllowedHeader("Authorization");
@@ -53,16 +53,16 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/add-flat").hasAuthority("admin")
                 .antMatchers(HttpMethod.GET, "/get-comments").hasAuthority("admin")
 
-                .antMatchers(HttpMethod.GET, "/get-myflat/{user_id}").hasAuthority("user")
-                .antMatchers(HttpMethod.POST, "/update-flat").hasAuthority("user")
-                .antMatchers(HttpMethod.POST, "/update-flatuser").hasAuthority("user")
-                .antMatchers(HttpMethod.POST, "/add-comment").hasAuthority("user")
-                .antMatchers(HttpMethod.POST, "/update-comment").hasAuthority("user")
-                .antMatchers(HttpMethod.DELETE, "/delete-comment").hasAuthority("user")
-                .antMatchers(HttpMethod.GET, "/get-comments/{user-id}").hasAuthority("user")
-                .antMatchers(HttpMethod.POST, "/create-flatuser").hasAuthority("user")
-                .antMatchers(HttpMethod.DELETE, "/delete-flatuser").hasAuthority("user")
-                .antMatchers(HttpMethod.POST, "/update-flatuser").hasAuthority("user")
+                .antMatchers(HttpMethod.GET, "/get-myflat/{user_id}").hasAuthority("resident")
+                .antMatchers(HttpMethod.POST, "/update-flat").hasAuthority("resident")
+                .antMatchers(HttpMethod.POST, "/update-flatuser").hasAuthority("resident")
+                .antMatchers(HttpMethod.POST, "/add-comment").hasAuthority("resident")
+                .antMatchers(HttpMethod.POST, "/update-comment").hasAuthority("resident")
+                .antMatchers(HttpMethod.DELETE, "/delete-comment").hasAuthority("resident")
+                .antMatchers(HttpMethod.GET, "/get-comments/{user-id}").hasAuthority("resident")
+                .antMatchers(HttpMethod.POST, "/create-flatuser").hasAuthority("resident")
+                .antMatchers(HttpMethod.DELETE, "/delete-flatuser").hasAuthority("resident")
+                .antMatchers(HttpMethod.POST, "/update-flatuser").hasAuthority("resident")
 
                 .antMatchers(HttpMethod.GET, "/get-flats").hasAuthority("landlord")
                 .antMatchers(HttpMethod.GET, "/get-buildings").hasAuthority("landlord")
@@ -70,6 +70,6 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/get-flatusers").hasAuthority("landlord")
                 .antMatchers(HttpMethod.POST, "/update-building").hasAuthority("landlord")
                 .antMatchers(HttpMethod.DELETE, "/delete-comment").hasAuthority("landlord");
-        
+
     }
 }
