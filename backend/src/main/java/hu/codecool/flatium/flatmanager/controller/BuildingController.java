@@ -37,7 +37,7 @@ public class BuildingController {
         return buildingRepository.findAll();
     }
 
-    @PostMapping(path = "get-building")
+    @PostMapping(path = "/get-building")
     public Building getBuilding(@RequestBody int id){
         return buildingRepository.findById(id).orElseThrow(()->new IllegalStateException("Building not found"));
     }

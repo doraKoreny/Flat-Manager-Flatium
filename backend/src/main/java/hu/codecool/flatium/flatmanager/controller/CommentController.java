@@ -33,10 +33,19 @@ public class CommentController {
         return commentRepository.findAll();
     }
 
+    @GetMapping(path = "/get-comments/{user-id}")
+    public List<Comment> getCommentsByUserId(@PathVariable("user-id") String userId) {
+        return commentRepository.findCommentsByFlatUserId(Integer.parseInt(userId));
+    }
+
     @DeleteMapping(path = "/delete-comment")
-    public String deleteComment(@RequestBody int commentId) {
-        commentRepository.deleteById(commentId);
-        return "Comment succesfully deleted";
+    public String deleteComment(@RequestBody int commentId, int userId) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new IllegalStateException("Comment not found."));
+        if (comment.getFlatUserId() == userId) {
+            commentRepository.deleteById(commentId);
+            return "Comment succesfully deleted";
+        }
+        return "Comment not deleted";
     }
 
     @PostMapping(path = "/update-comment")
