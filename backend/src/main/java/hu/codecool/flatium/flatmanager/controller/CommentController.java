@@ -4,11 +4,7 @@ import hu.codecool.flatium.flatmanager.api.CommentUpdateRequest;
 import hu.codecool.flatium.flatmanager.model.forum.Comment;
 import hu.codecool.flatium.flatmanager.repository.CommentRepository;
 import hu.codecool.flatium.flatmanager.repository.FlatUserRepository;
-import hu.codecool.flatium.flatmanager.service.CommentService;
-import hu.codecool.flatium.flatmanager.service.FlatUserStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +21,7 @@ public class CommentController {
     @PostMapping(path = "/add-comment")
     public String addComment(@RequestBody Comment comment) {
         commentRepository.save(comment);
-        return "Comment succesfully added"; // make every response JSON
+        return "Comment succesfully added";
     }
 
     @GetMapping(path = "/get-comments")
@@ -53,8 +49,6 @@ public class CommentController {
         Comment comment = commentRepository.findById(commentUpdateRequest.getCommentId()).orElseThrow(()->new IllegalStateException("no comment"));
         comment.setMessage(commentUpdateRequest.getComment());
         commentRepository.save(comment);
-
-
         return "Comment succesfully updated";
     }
 

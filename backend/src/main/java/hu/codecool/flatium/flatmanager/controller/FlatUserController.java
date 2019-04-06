@@ -2,12 +2,8 @@ package hu.codecool.flatium.flatmanager.controller;
 
 import hu.codecool.flatium.flatmanager.api.FlatUserUpdateRequest;
 import hu.codecool.flatium.flatmanager.model.flat.Person;
-import hu.codecool.flatium.flatmanager.repository.FlatRepository;
 import hu.codecool.flatium.flatmanager.repository.FlatUserRepository;
-import hu.codecool.flatium.flatmanager.service.FlatUserStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,7 +36,6 @@ public class FlatUserController {
         Person flatUserToSave = flatUser.getPerson();
         flatUserToSave.setId(flatUser.getFlatUserId());
         flatUserRepository.save(flatUserToSave);
-
         return "Updated successfully";
     }
 }
