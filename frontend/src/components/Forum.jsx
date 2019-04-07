@@ -1,64 +1,47 @@
 import React, {Component} from 'react';
-import axios from "axios";
-import ForumPosts from "./ForumPosts"
+import {Row,Input,Col,Button,Card,Icon} from 'react-materialize'
+import AOS from 'aos';
+import Post from "./Post";
 
 class Forum extends Component {
-    state ={
-        postMessage:""
+
+    componentDidMount() {
+        AOS.init();
+    }
+
+    state = {
+      message:""
     };
 
-    onChange = (e) => this.setState({ postMessage: e.target.value});
 
-    onSubmit = (e) =>{
-        e.preventDefault();
-        this.submitPost();
-    };
-
-    submitPost = () => {
-        axios.post('http://localhost:8080/add-comment',{
-            "flatUserId":0,
-            "message":this.state.postMessage
-        })
-            .then(response => {
-                console.log(response);
-                this.setState({postMessage:""})
-            });
-    };
+    onChange = (e) => this.setState({ message: e.target.value});
 
     render() {
         return (
             <div>
-                <div className="header">
-                    <h1>Forum</h1>
-                </div>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-10">
-                                    <input className="form-control input-lg"
-                                           id="inputlg"
-                                           type="text"
-                                           placeholder="Enter your forum post here..."
-                                           value={this.state.postMessage}
-                                           onChange={this.onChange}
-                                    />
-                                </div>
-                                <div className="col-2">
-                                    <button className="btn btn-lg btn-block btn-dark">POST</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                    <Card className='deep-orange darken-2 card-forum card-header'
+                          data-aos="fade-up">
 
-                <div className="container">
-                    <div className="row contactsheader">
-                        <div className="col-6">Message</div>
-                        <div className="col-6">Time</div>
-                    </div>
-                </div>
-                <ForumPosts/>
+                        <span className="card-title white-text text-darken-4">Forum</span>
+
+                        <Input type='textarea'
+                               className="text-lighten-1 grey lighten-1"
+                                value={this.state.message}
+                               onChange={this.onChange}
+                        >
+                            <Icon>mode_edit</Icon>
+                        </Input>
+                        <div className="to-the-right">
+                            <Button waves='orange'
+                                    className="white black-text"
+                                    onClick = {()=>console.log("test")}>SUBMIT</Button>
+                        </div>
+                    </Card>
+
+                <Post userName="Kis Pista"
+                      date="2015-02-03"
+                      message="első"/>
+
             </div>
         );
     }

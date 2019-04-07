@@ -1,16 +1,24 @@
 {
-  "name": "react-app",
+  "name": "newfrontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "aos": "^2.3.4",
+    "auth-js": "0.0.16",
+    "auth0": "^2.16.0",
+    "auth0-js": "^9.10.1",
     "axios": "^0.18.0",
-    "bootstrap": "^4.3.1",
     "jquery": "^3.3.1",
-    "popper.js": "^1.14.7",
+    "materialize-css": "^0.100.2",
     "react": "^16.8.2",
+    "react-aos": "^1.0.1",
     "react-dom": "^16.8.2",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.5"
+    "react-materialize": "^2.6.0",
+    "react-player": "^1.9.3",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.8",
+    "react-video-cover": "^1.2.2",
+    "really-smooth-scroll": "^2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
