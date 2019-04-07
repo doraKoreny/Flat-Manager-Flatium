@@ -18,5 +18,5 @@ We planned to create an application which can make those people's life easier wh
 - JUnit
 - React
  
-This is a teamwork project. The Flatium team consists of three amazing Codecoolers: Koreny Dóra, Márton János, Ádám Bozsóki. We spent all together 12 days to implement this application. 
+This is a teamwork project. The Flatium team consists of three amazing Codecoolers: Koreny Dóra, Márton János, Ádám Bozsóki. During the implementation we used pair-programming technique a lot. We spent all together 12 days to implement this application. 
 
